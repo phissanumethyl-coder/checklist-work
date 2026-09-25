@@ -1,0 +1,10 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // อนุญาตเฉพาะอีเมลของผู้จัดการเท่านั้น (เปลี่ยนเป็นอีเมล Google ของคุณ)
+    match /{document=**} {
+      allow read, write: if request.auth != null
+        && request.auth.token.email in ["phissanu.methyl@gmail.com"];
+    }
+  }
+}
